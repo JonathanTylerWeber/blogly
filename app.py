@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -70,5 +70,51 @@ def delete_user(user_id):
     """delete user"""
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
+    db.session.commit()
+    return redirect('/users')
+
+@app.route('/users/<int:user_id>/posts/new')
+def show_post_form(user_id):
+    """Show form to add a post for that user"""
+    user = User.query.get_or_404(user_id)
+    return render_template('post_form.html', user=user)
+
+@app.route('/users/<int:user_id>/posts/new', methods=['POST'])
+def process_post(user_id):
+    title = request.form['title']
+    content = request.form['content']
+    new_post = Post(title=title, content=content, user_id=user_id)
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(f'/users/{user.id}')
+
+@app.route('/posts/<int:post_id>')
+def show_post(post_id):
+    """show details about a single post"""
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit')
+def edit_post(post_id):
+    """go to edit page for post"""
+    post = Post.query.get_or_404(post_id)
+    return render_template('edit_post.html', post=post)
+
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def update_post(post_id):
+    """process update post"""
+    title = request.form['title']
+    content = request.form['content']
+    updated_post = Post.query.get_or_404(post_id)
+    updated_post.title = title
+    updated_post.content = content
+    db.session.commit()
+    return redirect(f'/posts/{updated_post.id}')
+
+@app.route('/posts/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    """delete post"""
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
     db.session.commit()
     return redirect('/users')
