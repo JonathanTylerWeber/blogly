@@ -46,7 +46,8 @@ def create_user():
 def show_user(user_id):
     """show details about a single user"""
     user = User.query.get_or_404(user_id)
-    return render_template('user.html', user=user)
+    posts = user.posts
+    return render_template('user.html', user=user, posts=posts)
 
 @app.route('/users/<int:user_id>/edit')
 def edit_user(user_id):
