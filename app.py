@@ -87,7 +87,7 @@ def process_post(user_id):
     new_post = Post(title=title, content=content, user_id=user_id)
     db.session.add(new_post)
     db.session.commit()
-    return redirect(f'/users/{user.id}')
+    return redirect(f'/users/{user_id}')
 
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
