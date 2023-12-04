@@ -17,7 +17,12 @@ New Post
     <br>
     <h3>Content</h3>
     <input type="text" name="content" placeholder="add post content">
-    <button>Add</button>
+    <h3>Tags</h3>
+    {% for tag in tags %}
+    <input type="checkbox" name="tag" value="{{ tag.id }}">
+    <p>{{ tag.name }}</p>
+    {% endfor %}
+    <button>Create Post</button>
 </form>
 <br>
 <button><a href="/users">Cancel</a></button>

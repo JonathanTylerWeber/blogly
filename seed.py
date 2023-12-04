@@ -1,4 +1,4 @@
-from models import Post, User, db
+from models import Post, User, db, Tag
 from app import app
 from sqlalchemy import Column, DateTime
 
@@ -15,10 +15,18 @@ p3 = Post(title='lorem3', content='sadgdfhdsfhsdhfdhdshdfshdf', user_id='2')
 p4 = Post(title='lorem4', content='sadgdfhdsfhsdhfdhdshdfshdf', user_id='2')
 p5 = Post(title='lorem5', content='sadgdfhdsfhsdhfdhdshdfshdf', user_id='3')
 
+t1 = Tag(name='hot')
+t2 = Tag(name='cool')
+t3 = Tag(name='awesome')
+
 users = [u1, u2, u3]
 db.session.add_all(users)
 db.session.commit()
 
 posts = [p1, p2, p3, p4, p5]
 db.session.add_all(posts)
+db.session.commit()
+
+tags = [t1, t2, t3]
+db.session.add_all(tags)
 db.session.commit()

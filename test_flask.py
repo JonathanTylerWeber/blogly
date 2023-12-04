@@ -109,11 +109,11 @@ class PostViewsTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn('<h1>lorem1</h1>', html)
 
-    # def test_add_post(self):
-    #     with app.test_client() as client:
-    #         d = {"title": "lorem2", "content": "sadgdfhdsfhsdhfdhdshdfshdf", "user_id": "1"}
-    #         resp = client.post("/users/1/posts/new", data=d, follow_redirects=True)
-    #         html = resp.get_data(as_text=True)
+    def test_add_post(self):
+        with app.test_client() as client:
+            d = {"title": "lorem2", "content": "sadgdfhdsfhsdhfdhdshdfshdf", "user_id": {self.user_id}}
+            resp = client.post(f"/users/{self.user_id}/posts/new", data=d, follow_redirects=True)
+            html = resp.get_data(as_text=True)
 
-    #         self.assertEqual(resp.status_code, 200)
-    #         self.assertIn("lorem2", html)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("lorem2", html)

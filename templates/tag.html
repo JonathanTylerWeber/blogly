@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{{ tag.name }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<h1>{{ tag.name }}</h1>
+<br>
+<button><a href="/tags/{{ tag.id }}/edit">Edit</a></button>
+<form action="/tags/{{ tag.id }}/delete" method="POST">
+    <button type="submit">Delete</button>
+</form>
+<br>
+<button><a href="/users">Go Back</a></button>
+
+{% endblock %}
