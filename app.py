@@ -93,7 +93,9 @@ def process_post(user_id):
 def show_post(post_id):
     """show details about a single post"""
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', post=post)
+    user_id = post.user_id
+    user = User.query.get_or_404(user_id)
+    return render_template('post.html', post=post, user=user)
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post(post_id):

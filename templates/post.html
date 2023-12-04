@@ -12,6 +12,9 @@
 
 <h1>{{ post.title }}</h1>
 <h3>{{ post.content }}</h3>
+<p>By: {{ user.first_name }} {{ user.last_name }}</p>
+<p>{{ post.created_at }}</p>
+<br>
 <button><a href="/users/{{ post.user_id }}">Go Back</a></button>
 <button><a href="/posts/{{ post.id }}/edit">Edit</a></button>
 <form action="/posts/{{ post.id }}/delete" method="POST">
