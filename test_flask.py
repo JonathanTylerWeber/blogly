@@ -95,7 +95,7 @@ class PostViewsTestCase(TestCase):
 
     def test_list_posts(self):
         with app.test_client() as client:
-            resp = client.get("/users/1")
+            resp = client.get(f"/users/{self.user_id}")
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
