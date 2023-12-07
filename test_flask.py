@@ -86,7 +86,7 @@ class PostViewsTestCase(TestCase):
         """Clean up any fouled transaction."""
 
         # Delete the post
-        Post.query.filter_by(id=self.post_id).delete()
+        Post.query.filter_by(user_id=self.user_id).delete()
 
         # Delete the user
         User.query.filter_by(id=self.user_id).delete()
